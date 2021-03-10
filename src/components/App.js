@@ -1,35 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import '../index.css';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
 
 function App() {
   return (
     <>
-    <div className="Page">
-        <header className="Header" />
-            <img src="<%=require('./images/logo.svg')%>" className="Header__logo" alt="Логотип сайта" />
-
-        <main className="Content">
-            <section className="Profile">
-                <img src="<%=require('./images/kusto.jpg')%>" className="Profile__avatar" alt="Фото, которое вы сами выберете" />
-                <div className="Profile__edits">
-                    <div className="Profile__edit"></div>
-                </div>
-                <div className="Profile-info">
-                    <div className="Profile-info__nowrap">
-                        <h1 className="Profile-info__name">Жак-Ив Кусто</h1>
-                        <button type="button" className="Profile-info__button"></button>
-                    </div>
-                    <p className="Profile-info__activity">Исследователь океана</p>
-                </div>
-                <button type="button" className="Add-button"></button>
-            </section>
-
-            <section className="Elements"/>
-        </main>
-
-        <footer className="Footer">
-            <p className="Footer__copyright" lang="en">&copy; 2020 Mesto Russia</p>
-</footer>
+    <div className="page">
+        <Header />
+        <Main />
+        <Footer />
         </div>
 
 <div className="popup popup_open_edit">
