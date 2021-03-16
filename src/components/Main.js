@@ -1,30 +1,71 @@
 import '../index.css';
-import kusto from '../images/kusto.jpg'
+import React from 'react';
+import api from '../utils/Api';
+import Card from './Card.js';
 
-function Main() {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
+    const [userName, setUserName] = React.useState('');
+    const [userDescription, setUserDescription] = React.useState('');
+    const [userAvatar, setUserAvatar] = React.useState('');
+    const [cards, setCards] = React.useState([]);
+
+    function mapCard(card) {
+        return (
+            <>
+                <Card card={card} onCardClick={() => onCardClick(card)} />
+            </>
+        );
+    }
+
+    React.useEffect(() => {
+        Promise.all([api.getUserInfo(), api.getInitialCards()])
+            .then(([res, cardList]) => {
+                setUserName(res.name);
+                setUserDescription(res.about);
+                setUserAvatar(res.avatar);
+                setCards(cardList);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
     return (
-      <>
-    <main className="content">
-              <section className="profile">
-                  <img src={kusto} className="profile__avatar" alt="Фото, которое вы сами выберете" />
-                  <div className="profile__edits">
-                      <div className="profile__edit"></div>
-                  </div>
-                  <div className="profile-info">
-                      <div className="profile-info__nowrap">
-                          <h1 className="profile-info__name">Жак-Ив Кусто</h1>
-                          <button type="button" className="profile-info__button"></button>
-                      </div>
-                      <p className="profile-info__activity">Исследователь океана</p>
-                  </div>
-                  <button type="button" className="add-button"></button>
-              </section>
-  
-              <section className="elements"/>
-          </main>
-          </>
-          )
-          }
+        <>
+            <main className="content">
+                <section className="profile">
+                    <img
+                        src={userAvatar}
+                        className="profile__avatar"
+                        alt="Фото, которое вы сами выберете"
+                    />
+                    <div className="profile__edits" onClick={onEditAvatar}>
+                        <div className="profile__edit"></div>
+                    </div>
+                    <div className="profile-info">
+                        <div className="profile-info__nowrap">
+                            <h1 className="profile-info__name">{userName}</h1>
+                            <button
+                                type="button"
+                                className="profile-info__button"
+                                onClick={onEditProfile}
+                            />
+                        </div>
+                        <p className="profile-info__activity">
+                            {userDescription}
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        className="add-button"
+                        onClick={onAddPlace}
+                    />
+                </section>
 
-          export default Main;
-          
+                <section className="elements">{cards.map(mapCard)}</section>
+            </main>
+        </>
+    );
+}
+
+export default Main;

@@ -1,78 +1,183 @@
 import '../index.css';
+import React from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup';
 
 function App() {
-  return (
-    <>
-    <div className="page">
-        <Header />
-        <Main />
-        <Footer />
-        </div>
+    const [isEditProfilePopupOpen, setEditProfileClick] = React.useState(false);
+    const [isAddPlacePopupOpen, setAddPlaceClick] = React.useState(false);
+    const [isEditAvatarPopupOpen, setEditAvatarClick] = React.useState(false);
+    const [isPopupWithImageOpen, setPopupWithImageOpen] = React.useState(false);
+    const [selectedCard, setSelectedCard] = React.useState(null);
 
-<div className="popup popup_open_edit">
-<div className="popup__container">
-    <form name="popup-form" className="popup__form popup__form_element_edit">
-        <h2 className="popup__heading">Редактировать профиль</h2>
-        <input type="text" name="author" id="text-input-author" className="popup__text popup__text_name_author" value="Жак-Ив Кусто" placeholder="Имя" minlength="2" maxlength="40" required />
-        <span className="popup__text-error popup__text-error_active" id="text-input-author-error"/>
-        <input type="text" name="activity" id="text-input-activity" className="popup__text popup__text_name_activity" value="Исследователь океана" placeholder="О себе" minlength="2" maxlength="200" required />
-        <span className="popup__text-error popup__text-error_active" id="text-input-activity-error"/>
-        <input type="submit" className="popup__button popup__button" value="Сохранить" />
-        </form>
-    <button className="popup__close popup__close_window_edit" type="button"></button>
+    const profileEditInputs = (
+        <>
+            <input
+                type="text"
+                name="author"
+                id="text-input-author"
+                className="popup__text popup__text_name_author"
+                value="Жак-Ив Кусто"
+                placeholder="Имя"
+                minLength="2"
+                maxLength="40"
+                required
+            />
+            <span
+                className="popup__text-error popup__text-error_active"
+                id="text-input-author-error"
+            />
+            <input
+                type="text"
+                name="activity"
+                id="text-input-activity"
+                className="popup__text popup__text_name_activity"
+                value="Исследователь океана"
+                placeholder="О себе"
+                minLength="2"
+                maxLength="200"
+                required
+            />
+            <span
+                className="popup__text-error popup__text-error_active"
+                id="text-input-activity-error"
+            />
+        </>
+    );
 
-</div>
-</div>
+    const addPlaseInputs = (
+        <>
+            <input
+                type="text"
+                name="description"
+                id="text-input-description"
+                className="popup__text popup__text_name_description"
+                value=""
+                placeholder="Название"
+                minLength="2"
+                maxLength="30"
+                required
+            />
+            <span
+                className="popup__text-error popup__text-error_active"
+                id="text-input-description-error"
+            />
+            <input
+                type="url"
+                name="link"
+                id="url-input-link"
+                className="popup__text popup__text_name_link"
+                value=""
+                placeholder="Ссылка на картинку"
+                required
+            />
+            <span
+                className="popup__text-error popup__text-error_active"
+                id="url-input-link-error"
+            />
+        </>
+    );
 
-<div clasName="popup popup_open_add">
-<div className="popup__container">
-    <form name="popup-item-form" className="popup__form popup__form_element_add" novalidate>
-        <h2 className="popup__heading">Новое место</h2>
-        <input type="text" name="description" id="text-input-description" className="popup__text popup__text_name_description" value="" placeholder="Название" minlength="2" maxlength="30" required />
-        <span className="popup__text-error popup__text-error_active" id="text-input-description-error"/>
-        <input type="url" name="link" id="url-input-link" className="popup__text popup__text_name_link" value="" placeholder="Ссылка на картинку" required />
-        <span className="popup__text-error popup__text-error_active" id="url-input-link-error"/>
-        <input type="submit" className="popup__button popup__button_create_card" value="Создать" />
-    </form>
-    <button className="popup__close popup__close_window_add" type="button"></button>
-</div>
-</div>
+    const editAvatarInputs = (
+        <>
+            <input
+                type="url"
+                name="link-image"
+                id="avatar-input-link"
+                className="popup__text popup__text_name_image"
+                value=""
+                placeholder="Ссылка на картинку"
+                required
+            />
+            <span
+                className="popup__text-error popup__text-error_active"
+                id="avatar-input-link-error"
+            />
+        </>
+    );
 
-<div className="popup popup_open_picture">
-<div className="popup__open-card">
-    <img className="popup__picture" alt="Подставляем изображение" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" />
-    <p className="popup__description"/>
-    <button className="popup__close popup__close_window_picture" type="button"/>
-</div>
-</div>
+    function handleEditProfileClick() {
+        setEditProfileClick(true);
+    }
 
-<div className="popup popup_open_confirmation">
-<div className="popup__container">
-    <form name="popup-form-confirmation" className="popup__form popup__form_element_confirmation" novalidate>
-        <h2 className="popup__heading">Вы уверены?</h2>
-        <input type="submit" className="popup__button popup__button_confirmation" value="Да" />
-    </form>
-    <button className="popup__close popup__close_window_confirmation" type="button"/>
-</div>
-</div>
+    function handleAddPlaceClick() {
+        setAddPlaceClick(true);
+    }
 
-<div className="popup popup_change_avatar">
-<div className="popup__container">
-    <form name="popup-form-edit-image" className="popup__form popup__form_element_avatar" novalidate>
-        <h2 className="popup__heading">Обновить аватар</h2>
-        <input type="url" name="link-image" id="avatar-input-link" className="popup__text popup__text_name_image" value="" placeholder="Ссылка на картинку" required />
-        <span className="popup__text-error popup__text-error_active" id="avatar-input-link-error"/>
-        <input type="submit" className="popup__button popup__button_edit_image" value="Сохранить"/>
-    </form>
-    <button className="popup__close popup__close_edit_image" type="button"/>
-</div>
-</div>
+    function handleEditAvatarClick() {
+        setEditAvatarClick(true);
+    }
 
-</>
-  );
+    function closeAllPopups() {
+        setEditProfileClick(false);
+        setAddPlaceClick(false);
+        setEditAvatarClick(false);
+        setPopupWithImageOpen(false);
+        setSelectedCard(null);
+    }
+
+    function handleCardClick(card) {
+        setSelectedCard(card);
+        setPopupWithImageOpen(true);
+    }
+
+    return (
+        <>
+            <div className="page">
+                <Header />
+                <Main
+                    onEditAvatar={handleEditAvatarClick}
+                    onEditProfile={handleEditProfileClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onCardClick={handleCardClick}
+                />
+                <Footer />
+            </div>
+
+            <PopupWithForm
+                name="open_edit"
+                title="Редактировать профиль"
+                input="Сохранить"
+                isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
+                children={profileEditInputs}
+            />
+
+            <PopupWithForm
+                name="open_add"
+                title="Новое место"
+                input="Создать"
+                isOpen={isAddPlacePopupOpen}
+                onClose={closeAllPopups}
+                children={addPlaseInputs}
+            />
+
+            <ImagePopup
+                name="open_picture"
+                card={selectedCard}
+                isOpen={isPopupWithImageOpen}
+                onClose={closeAllPopups}
+            />
+
+            <PopupWithForm
+                name="open_confirmation"
+                title="Вы уверены?"
+                input="Да"
+            />
+
+            <PopupWithForm
+                name="change_avatar"
+                title="Обновить аватар"
+                input="Сохранить"
+                isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
+                children={editAvatarInputs}
+            />
+        </>
+    );
 }
 
 export default App;
