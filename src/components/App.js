@@ -71,20 +71,6 @@ function App() {
 </div>
 </div>
 
-<template id="card-template">
-<li className="element">
-    <img className="element__image" alt="Подставляем изображение"
-        src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" />
-    <div className="element__nowrap">
-        <h3 className="element__text"/>
-        <div className="element__wrap">
-            <button type="button" className="element__button"/>
-            <p className="element__like">0</p>
-        </div>
-    </div>
-    <button type="button" className="element__basket"/>
-</li>
-</template>
 </>
   );
 }
