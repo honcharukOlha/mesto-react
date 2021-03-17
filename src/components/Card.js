@@ -2,7 +2,7 @@ import React from 'react';
 
 function Card({ card, onCardClick }) {
     return (
-        <li className="element" key={card._id}>
+        <li className="element">
             <img
                 className="element__image"
                 src={card.link}

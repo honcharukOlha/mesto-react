@@ -126,56 +126,58 @@ function App() {
 
     return (
         <>
-            <div className="page">
-                <Header />
-                <Main
-                    onEditAvatar={handleEditAvatarClick}
-                    onEditProfile={handleEditProfileClick}
-                    onAddPlace={handleAddPlaceClick}
-                    onCardClick={handleCardClick}
+            <div class="root">
+                <div className="page">
+                    <Header />
+                    <Main
+                        onEditAvatar={handleEditAvatarClick}
+                        onEditProfile={handleEditProfileClick}
+                        onAddPlace={handleAddPlaceClick}
+                        onCardClick={handleCardClick}
+                    />
+                    <Footer />
+                </div>
+
+                <PopupWithForm
+                    name="open_edit"
+                    title="Редактировать профиль"
+                    input="Сохранить"
+                    isOpen={isEditProfilePopupOpen}
+                    onClose={closeAllPopups}
+                    children={profileEditInputs}
                 />
-                <Footer />
+
+                <PopupWithForm
+                    name="open_add"
+                    title="Новое место"
+                    input="Создать"
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                    children={addPlaseInputs}
+                />
+
+                <ImagePopup
+                    name="open_picture"
+                    card={selectedCard}
+                    isOpen={isPopupWithImageOpen}
+                    onClose={closeAllPopups}
+                />
+
+                <PopupWithForm
+                    name="open_confirmation"
+                    title="Вы уверены?"
+                    input="Да"
+                />
+
+                <PopupWithForm
+                    name="change_avatar"
+                    title="Обновить аватар"
+                    input="Сохранить"
+                    isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
+                    children={editAvatarInputs}
+                />
             </div>
-
-            <PopupWithForm
-                name="open_edit"
-                title="Редактировать профиль"
-                input="Сохранить"
-                isOpen={isEditProfilePopupOpen}
-                onClose={closeAllPopups}
-                children={profileEditInputs}
-            />
-
-            <PopupWithForm
-                name="open_add"
-                title="Новое место"
-                input="Создать"
-                isOpen={isAddPlacePopupOpen}
-                onClose={closeAllPopups}
-                children={addPlaseInputs}
-            />
-
-            <ImagePopup
-                name="open_picture"
-                card={selectedCard}
-                isOpen={isPopupWithImageOpen}
-                onClose={closeAllPopups}
-            />
-
-            <PopupWithForm
-                name="open_confirmation"
-                title="Вы уверены?"
-                input="Да"
-            />
-
-            <PopupWithForm
-                name="change_avatar"
-                title="Обновить аватар"
-                input="Сохранить"
-                isOpen={isEditAvatarPopupOpen}
-                onClose={closeAllPopups}
-                children={editAvatarInputs}
-            />
         </>
     );
 }

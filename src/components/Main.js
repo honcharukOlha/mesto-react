@@ -1,6 +1,6 @@
 import '../index.css';
 import React from 'react';
-import api from '../utils/Api';
+import api from '../utils/api.js';
 import Card from './Card.js';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
@@ -11,9 +11,11 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
 
     function mapCard(card) {
         return (
-            <>
-                <Card card={card} onCardClick={() => onCardClick(card)} />
-            </>
+            <Card
+                key={card._id}
+                card={card}
+                onCardClick={() => onCardClick(card)}
+            />
         );
     }
 
