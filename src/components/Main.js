@@ -1,43 +1,36 @@
 import '../index.css';
 import React from 'react';
-import api from '../utils/api.js';
 import Card from './Card.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-    const [userName, setUserName] = React.useState('');
-    const [userDescription, setUserDescription] = React.useState('');
-    const [userAvatar, setUserAvatar] = React.useState('');
-    const [cards, setCards] = React.useState([]);
-
+function Main({
+    cards,
+    onEditAvatar,
+    onEditProfile,
+    onCardLike,
+    onCardDelete,
+    onAddPlace,
+    onCardClick,
+}) {
+    const currentUser = React.useContext(CurrentUserContext);
     function mapCard(card) {
         return (
             <Card
                 key={card._id}
                 card={card}
                 onCardClick={() => onCardClick(card)}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
             />
         );
     }
-
-    React.useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([res, cardList]) => {
-                setUserName(res.name);
-                setUserDescription(res.about);
-                setUserAvatar(res.avatar);
-                setCards(cardList);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
 
     return (
         <>
             <main className="content">
                 <section className="profile">
                     <img
-                        src={userAvatar}
+                        src={currentUser.avatar}
                         className="profile__avatar"
                         alt="Фото, которое вы сами выберете"
                     />
@@ -46,7 +39,9 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                     </div>
                     <div className="profile-info">
                         <div className="profile-info__nowrap">
-                            <h1 className="profile-info__name">{userName}</h1>
+                            <h1 className="profile-info__name">
+                                {currentUser.name}
+                            </h1>
                             <button
                                 type="button"
                                 className="profile-info__button"
@@ -54,7 +49,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                             />
                         </div>
                         <p className="profile-info__activity">
-                            {userDescription}
+                            {currentUser.about}
                         </p>
                     </div>
                     <button

@@ -39,14 +39,13 @@ export class Api {
     }
 
     deleteCard(cardId) {
-        console.log(cardId);
         return fetch(`${this.baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             headers: this.headers,
         }).then(this._handleResult);
     }
 
-    toggleLike(isLike, cardId) {
+    toggleLike(cardId, isLike) {
         let method = 'PUT';
         if (!isLike) {
             method = 'DELETE';

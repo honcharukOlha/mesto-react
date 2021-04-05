@@ -9,6 +9,7 @@ function PopupWithForm(props) {
         >
             <div className="popup__container">
                 <form
+                    onSubmit={props.onSubmit}
                     name={`popup-${props.name}`}
                     className="popup__form novalidate"
                 >
