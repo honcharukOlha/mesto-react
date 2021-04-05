@@ -56,8 +56,8 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-    function handleUpdateUser(userInfo) {
-        api.setUserInfo(userInfo.name, userInfo.about)
+    function handleUpdateUser(uInfo) {
+        api.setUserInfo(uInfo.name, uInfo.about)
             .then((updateUser) => {
                 setCurrentUser(updateUser);
                 closeAllPopups();
