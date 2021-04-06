@@ -2,13 +2,12 @@ import '../index.css';
 
 function Footer() {
     return (
-      <>
-          <footer className="footer">
-              <p className="footer__copyright" lang="en">&copy; 2020 Mesto Russia</p>
-  </footer>
-  </>
-    )
+        <footer className="footer">
+            <p className="footer__copyright" lang="en">
+                &copy; ${new Date().getFullYear()} Mesto Russia
+            </p>
+        </footer>
+    );
 }
 
 export default Footer;
-  

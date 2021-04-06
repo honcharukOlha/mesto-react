@@ -34,14 +34,21 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         });
     }
 
-    const profileEditInputs = (
-        <>
+    return (
+        <PopupWithForm
+            name="open_edit"
+            title="Редактировать профиль"
+            input="Сохранить"
+            isOpen={isOpen}
+            onClose={onClose}
+            onSubmit={handleSubmit}
+        >
             <input
                 type="text"
                 name="author"
                 id="text-input-author"
                 className="popup__text popup__text_name_author"
-                value={name}
+                value={name || ''}
                 placeholder="Имя"
                 minLength="2"
                 maxLength="40"
@@ -57,7 +64,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 name="description"
                 id="text-input-activity"
                 className="popup__text popup__text_name_activity"
-                value={description}
+                value={description || ''}
                 placeholder="О себе"
                 minLength="2"
                 maxLength="200"
@@ -68,19 +75,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 className="popup__text-error popup__text-error_active"
                 id="text-input-activity-error"
             />
-        </>
-    );
-
-    return (
-        <PopupWithForm
-            name="open_edit"
-            title="Редактировать профиль"
-            input="Сохранить"
-            isOpen={isOpen}
-            onClose={onClose}
-            onSubmit={handleSubmit}
-            children={profileEditInputs}
-        />
+        </PopupWithForm>
     );
 }
 

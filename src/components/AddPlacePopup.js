@@ -11,7 +11,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     React.useEffect(() => {
         setName('');
         setLink('');
-    }, [currentUser]);
+    }, [isOpen]);
 
     function handleChangeName(e) {
         setName(e.target.value);
@@ -32,8 +32,15 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         });
     }
 
-    const addPlaseInputs = (
-        <>
+    return (
+        <PopupWithForm
+            name="open_add"
+            title="Новое место"
+            input="Создать"
+            isOpen={isOpen}
+            onClose={onClose}
+            onSubmit={handleSubmit}
+        >
             <input
                 type="text"
                 name="description"
@@ -64,18 +71,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                 className="popup__text-error popup__text-error_active"
                 id="url-input-link-error"
             />
-        </>
-    );
-    return (
-        <PopupWithForm
-            name="open_add"
-            title="Новое место"
-            input="Создать"
-            isOpen={isOpen}
-            onClose={onClose}
-            onSubmit={handleSubmit}
-            children={addPlaseInputs}
-        />
+        </PopupWithForm>
     );
 }
 

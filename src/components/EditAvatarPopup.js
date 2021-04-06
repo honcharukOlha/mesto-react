@@ -16,8 +16,15 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
         });
     }
 
-    const editAvatarInputs = (
-        <>
+    return (
+        <PopupWithForm
+            name="change_avatar"
+            title="Обновить аватар"
+            input="Сохранить"
+            isOpen={isOpen}
+            onClose={onClose}
+            onSubmit={handleSubmit}
+        >
             <input
                 ref={avatarRef}
                 type="url"
@@ -31,19 +38,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
                 className="popup__text-error popup__text-error_active"
                 id="avatar-input-link-error"
             />
-        </>
-    );
-
-    return (
-        <PopupWithForm
-            name="change_avatar"
-            title="Обновить аватар"
-            input="Сохранить"
-            isOpen={isOpen}
-            onClose={onClose}
-            onSubmit={handleSubmit}
-            children={editAvatarInputs}
-        />
+        </PopupWithForm>
     );
 }
 
